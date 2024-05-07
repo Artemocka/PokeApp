@@ -2,6 +2,7 @@
 agp = "8.4.0"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
+glide = "4.16.0"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
@@ -11,6 +12,7 @@ activity = "1.9.0"
 constraintlayout = "2.1.4"
 daggerCompilerVersion = "2.51.1"
 daggerVersion = "2.51.1"
+
 [libraries]
 dagger-compiler-v2511 = { module = "com.google.dagger:dagger-compiler", version.ref = "daggerCompilerVersion" }
 dagger-v2511 = { module = "com.google.dagger:dagger", version.ref = "daggerVersion" }
@@ -22,6 +24,7 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

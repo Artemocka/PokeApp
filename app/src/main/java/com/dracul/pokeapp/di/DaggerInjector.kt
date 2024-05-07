@@ -1,8 +1,5 @@
 package com.dracul.pokeapp.di
 
-import com.dracul.techtask.di.AppComponent
-import com.dracul.techtask.di.DaggerAppComponent
-
 object DaggerInjector {
     lateinit var appComponent: AppComponent
         private set
