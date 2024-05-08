@@ -2,22 +2,15 @@ package com.dracul.pokeapp.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dracul.pokeapp.di.DaggerInjector
-import com.dracul.pokeapp.di.components.main.DaggerMainComponent
-import com.dracul.pokeapp.di.components.main.MainDependencies
 import com.dracul.pokeapp.domain.models.Result
-
 import com.dracul.pokeapp.domain.usecase.GetPokemonsUseCase
 import com.dracul.pokeapp.utills.Page
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class MainViewModel: ViewModel() {
-    @Inject
-    lateinit var getPokemonsUseCase: GetPokemonsUseCase
+class MainViewModel(var getPokemonsUseCase: GetPokemonsUseCase): ViewModel() {
 
     val pokemonList = MutableStateFlow<List<Result>>(emptyList())
 
@@ -26,7 +19,6 @@ class MainViewModel: ViewModel() {
 
 
     init {
-        DaggerMainComponent.builder().dependencies(dependencies = DaggerInjector.appComponent).build().inject(this@MainViewModel)
         getPokemons()
     }
     private fun getPokemons() {

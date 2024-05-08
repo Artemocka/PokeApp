@@ -1,13 +1,18 @@
 package com.dracul.pokeapp
 
 import android.app.Application
-import com.dracul.pokeapp.di.DaggerInjector
+import com.dracul.pokeapp.di.appModule
+import com.dracul.pokeapp.di.dataModule
+import com.dracul.pokeapp.di.domainModule
 import com.google.android.material.color.DynamicColors
+import org.koin.core.context.startKoin
 
 class App: Application() {
     override fun onCreate() {
         super.onCreate()
-        DaggerInjector.init()
         DynamicColors.applyToActivitiesIfAvailable(this)
+        startKoin {
+            modules(listOf(appModule, dataModule, domainModule))
+        }
     }
 }
