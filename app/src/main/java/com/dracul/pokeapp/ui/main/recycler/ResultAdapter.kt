@@ -35,8 +35,9 @@ class ResultAdapter: ListAdapter<Result, ResultAdapter.ViewHolder>(ResultItemCal
 
         fun bind(item: Result) {
             binding.run {
-
-                tvPokemonName.text = item.name
+                    tvPokemonName.text = item.name.replaceFirstChar {
+                        it.uppercaseChar()
+                    }
                 Glide
                     .with(binding.root)
                     .load("https://img.pokemondb.net/artwork/${item.name}.jpg")

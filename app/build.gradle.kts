@@ -45,9 +45,9 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("io.insert-koin:koin-android:3.6.0")
 
     implementation(libs.glide)
-
     kapt(libs.dagger.compiler.v2511)
     implementation(libs.dagger.v2511)
 

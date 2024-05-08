@@ -12,6 +12,7 @@ activity = "1.9.0"
 constraintlayout = "2.1.4"
 daggerCompilerVersion = "2.51.1"
 daggerVersion = "2.51.1"
+koin-bom = "3.6.0"
 
 [libraries]
 dagger-compiler-v2511 = { module = "com.google.dagger:dagger-compiler", version.ref = "daggerCompilerVersion" }
@@ -25,7 +26,8 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
-
+koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
+koin-core = { module = "io.insert-koin:koin-core" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
