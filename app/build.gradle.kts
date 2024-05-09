@@ -41,15 +41,16 @@ android {
 
 dependencies {
 
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation(project(":domain"))
+    implementation(project(":data"))
 
-    val koin_version="3.1.2"
-    implementation("io.insert-koin:koin-core:$koin_version")
-    implementation("io.insert-koin:koin-android:$koin_version")
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
 
     implementation(libs.glide)
     kapt(libs.dagger.compiler.v2511)

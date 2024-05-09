@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(){
 
     private lateinit var binding :FragmentMainBinding
     private val viewModel by viewModel<MainViewModel>()
@@ -47,5 +47,7 @@ class MainFragment : Fragment() {
         }
         return binding.root
     }
+
+
 
 }

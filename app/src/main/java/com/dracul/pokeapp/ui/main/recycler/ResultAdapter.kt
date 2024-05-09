@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.dracul.pokeapp.databinding.ItemPokemonBinding
-import com.dracul.pokeapp.domain.models.Result
+import com.example.domain.models.Result
 
-class ResultAdapter: ListAdapter<Result, ResultAdapter.ViewHolder>(ResultItemCallBack()) {
-
+class ResultAdapter(
+) : ListAdapter<Result, ResultAdapter.ViewHolder>(ResultItemCallBack()) {
 
 
     override fun getItemId(position: Int): Long {
@@ -31,20 +31,24 @@ class ResultAdapter: ListAdapter<Result, ResultAdapter.ViewHolder>(ResultItemCal
         holder.bind(item)
 
     }
-    class ViewHolder(private val binding: ItemPokemonBinding) : RecyclerView.ViewHolder(binding.root) {
+
+    class ViewHolder(
+        private val binding: ItemPokemonBinding,
+    ) : RecyclerView.ViewHolder(binding.root) {
+        private lateinit var pokemonName: String
 
         fun bind(item: Result) {
+            pokemonName = item.name
             binding.run {
-                    tvPokemonName.text = item.name.replaceFirstChar {
-                        it.uppercaseChar()
-                    }
-                Glide
-                    .with(binding.root)
-                    .load("https://img.pokemondb.net/artwork/${item.name}.jpg")
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(ivPokemon)
+                tvPokemonName.text = item.name.replaceFirstChar {
+                    it.uppercaseChar()
+                }
+                Glide.with(binding.root).load("https://img.pokemondb.net/artwork/${item.name}.jpg")
+                    .diskCacheStrategy(DiskCacheStrategy.ALL).into(ivPokemon)
 
             }
         }
     }
 }
+
+

@@ -2,17 +2,18 @@ package com.dracul.pokeapp.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dracul.pokeapp.domain.models.Result
-import com.dracul.pokeapp.domain.usecase.GetPokemonsUseCase
-import com.dracul.pokeapp.utills.Page
+import com.example.domain.models.Page
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-class MainViewModel(var getPokemonsUseCase: GetPokemonsUseCase): ViewModel() {
+class MainViewModel(
+    val getPokemonsUseCase: com.example.domain.usecase.GetPokemonsUseCase,
 
-    val pokemonList = MutableStateFlow<List<Result>>(emptyList())
+): ViewModel() {
+
+    val pokemonList = MutableStateFlow<List<com.example.domain.models.Result>>(emptyList())
 
     val error = MutableSharedFlow<String>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     private var page = Page(0)

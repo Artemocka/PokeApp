@@ -1,8 +1,9 @@
-package com.dracul.pokeapp.data.api
+package com.example.data.api
 
-import com.dracul.pokeapp.domain.models.Response
+import com.example.domain.models.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
+
 
 interface PokeApi {
 

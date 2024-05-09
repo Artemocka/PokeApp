@@ -1,14 +1,13 @@
-package com.dracul.pokeapp.data.repository
+package com.example.data.repository
 
-import com.dracul.pokeapp.data.api.PokeApi
-import com.dracul.pokeapp.domain.models.Result
-import com.dracul.pokeapp.domain.repository.GetPokemonsRepo
-import com.dracul.pokeapp.utills.Page
+import com.example.data.api.PokeApi
+import com.example.domain.models.Page
+import com.example.domain.models.Result
+import com.example.domain.repository.GetPokemonsRepo
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
-import javax.inject.Inject
 
-class GetPokemonsImpl @Inject constructor(
+class GetPokemonsImpl(
     val api: PokeApi
 ) : GetPokemonsRepo {
     override suspend fun get(page: Page):Pair<List<Result>?,String?>{

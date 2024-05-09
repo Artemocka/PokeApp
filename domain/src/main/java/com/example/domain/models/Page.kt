@@ -1,4 +1,4 @@
-package com.dracul.pokeapp.utills
+package com.example.domain.models
 
 data class Page(
     val index: Int = 0,
