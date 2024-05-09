@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 class MainViewModel(
     val getPokemonsUseCase: com.example.domain.usecase.GetPokemonsUseCase,
 
-): ViewModel() {
+    ) : ViewModel() {
 
     val pokemonList = MutableStateFlow<List<com.example.domain.models.Result>>(emptyList())
 
@@ -22,35 +22,24 @@ class MainViewModel(
     init {
         getPokemons()
     }
+
     private fun getPokemons() {
-
         viewModelScope.launch {
-            val pair = getPokemonsUseCase.execute(page)
-            when {
-                pair.second != null && pokemonList.value.isEmpty() -> {
-                    error.emit(pair.second!!)
-                    val index = page.index
-                    page = page.copy(index = index.dec())
+            val result = getPokemonsUseCase.execute(page)
+            result.onFailure {
+                it.message?.let { errorMessage ->
+                    error.emit(errorMessage)
                 }
-
-                pair.second != null -> {
-                    error.emit(pair.second!!)
-                    val index = page.index
-                    page = page.copy(index = index.dec())
-                }
-
-                pair.second == null -> {
-                    pair.first?.run {
-                        pokemonList.value+=this
-                    }
-                }
+            }
+            result.onSuccess {
+                pokemonList.emit(pokemonList.value + it)
             }
         }
     }
 
     fun nextPage() {
         val index = page.index
-        page =page.copy(index= index+1)
+        page = page.copy(index = index + 1)
         getPokemons()
     }
 

@@ -10,21 +10,15 @@ import java.net.UnknownHostException
 class GetPokemonsImpl(
     val api: PokeApi
 ) : GetPokemonsRepo {
-    override suspend fun get(page: Page):Pair<List<Result>?,String?>{
-
-        var resultList: List<Result>? = null
-        var errorMessage:String? = null
-
-        try {
-            resultList= api.getPage(page.getOffset(), page.getLimit()).results
+    override suspend fun get(page: Page):kotlin.Result<List<Result>>{
+        return try {
+            kotlin.Result.success(api.getPage(page.getOffset(), page.getLimit()).results)
         } catch (e: UnknownHostException) {
-            errorMessage ="No internet connections!"
+            kotlin.Result.failure(Throwable("No internet connections!"))
         } catch (e: SocketTimeoutException) {
-            errorMessage="Bad internet connections"
+            kotlin.Result.failure(Throwable("Bad internet connections!"))
         } catch (e: Exception) {
-            errorMessage="Unknown error"
+            kotlin.Result.failure(Throwable("Unknown error!"))
         }
-
-        return Pair(resultList, errorMessage)
     }
 }

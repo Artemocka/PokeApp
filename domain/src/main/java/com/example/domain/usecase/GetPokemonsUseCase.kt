@@ -9,7 +9,7 @@ import com.example.domain.repository.GetPokemonsRepo
 class GetPokemonsUseCase (
     val repository: GetPokemonsRepo
 ) {
-    suspend fun execute(page: Page):Pair<List<Result>?,String?>{
+    suspend fun execute(page: Page):kotlin.Result<List<Result>>{
         return  repository.get(page)
     }
 }

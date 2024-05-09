@@ -5,5 +5,5 @@ import com.example.domain.models.Result
 
 
 interface GetPokemonsRepo {
-    suspend fun get(page: Page):Pair<List<Result>?,String?>
+    suspend fun get(page: Page):kotlin.Result<List<Result>>
 }
