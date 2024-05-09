@@ -4,9 +4,9 @@ data class Page(
     val index: Int = 0,
 ) {
     fun getLimit(): Int {
-        return 20
+        return 50
     }
     fun getOffset(): Int {
-        return index * 20
+        return index * 50
     }
 }
