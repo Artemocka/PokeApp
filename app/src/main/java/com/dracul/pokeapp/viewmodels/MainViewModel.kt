@@ -41,11 +41,17 @@ class MainViewModel(
 
                 pair.second == null -> {
                     pair.first?.run {
-                        pokemonList.emit(this)
+                        pokemonList.value+=this
                     }
                 }
             }
         }
+    }
+
+    fun nextPage() {
+        val index = page.index
+        page =page.copy(index= index+1)
+        getPokemons()
     }
 
 
