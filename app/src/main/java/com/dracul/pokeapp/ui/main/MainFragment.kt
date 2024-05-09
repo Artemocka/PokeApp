@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePaddingRelative
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.dracul.pokeapp.databinding.FragmentMainBinding
 import com.dracul.pokeapp.ui.main.recycler.OnItemListener
 import com.dracul.pokeapp.ui.main.recycler.ResultAdapter
@@ -21,12 +22,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainFragment : Fragment(), OnItemListener{
 
     private lateinit var binding :FragmentMainBinding
-    private val viewModel by viewModel<MainViewModel>()
+    private val vm by viewModel<MainViewModel>()
     private val adapter = ResultAdapter(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycleScope.launch {
-            viewModel.pokemonList.collectLatest {
+            vm.pokemonList.collectLatest {
                 adapter.submitList(it)
             }
         }
@@ -50,12 +51,10 @@ class MainFragment : Fragment(), OnItemListener{
     }
 
     override fun onEnd() {
-        viewModel.nextPage()
+        vm.nextPage()
     }
 
-    override fun onItemClick(pokemonName: String) {
-        TODO("Not yet implemented")
+    override fun onItemClick(id: Int) {
+        vm.navigateToDetails(findNavController(), id)
     }
-
-
 }

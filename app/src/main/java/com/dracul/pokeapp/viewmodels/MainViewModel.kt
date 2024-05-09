@@ -2,6 +2,8 @@ package com.dracul.pokeapp.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import com.dracul.pokeapp.ui.main.MainFragmentDirections
 import com.example.domain.models.Page
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -12,8 +14,6 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(
     val getPokemonsUseCase: com.example.domain.usecase.GetPokemonsUseCase,
-    val getPokemonDataUseCase: com.example.domain.usecase.GetPokemonsUseCase,
-
     ) : ViewModel() {
 
     val _pokemonList = MutableStateFlow<List<com.example.domain.models.Result>>(emptyList())
@@ -46,6 +46,11 @@ class MainViewModel(
         val index = page.index
         page = page.copy(index = index + 1)
         getPokemons()
+    }
+
+    fun navigateToDetails(navController: NavController, id: Int) {
+        val action = MainFragmentDirections.actionProfile(id)
+        navController.navigate(action)
     }
 
 

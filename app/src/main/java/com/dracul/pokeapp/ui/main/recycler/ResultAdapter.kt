@@ -41,17 +41,17 @@ class ResultAdapter(
         private val binding: ItemPokemonBinding,
         private val listener: OnItemListener,
     ) : RecyclerView.ViewHolder(binding.root) {
-        private lateinit var item: Result
-        init {
-            binding.root.setOnClickListener { listener.onItemClick(item.name) }
-        }
+
+
         fun bind(item: Result,id: Int) {
             binding.run {
+                root.setOnClickListener { listener.onItemClick(id) }
+
                 tvPokemonName.text = item.name.replaceFirstChar {
                     it.uppercaseChar()
                 }
                 Glide
-                    .with(binding.root)
+                    .with(root)
                     .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png")
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(ivPokemon)
@@ -63,5 +63,5 @@ class ResultAdapter(
 
 interface OnItemListener {
     fun onEnd()
-    fun onItemClick(pokemonName: String)
+    fun onItemClick(id: Int)
 }

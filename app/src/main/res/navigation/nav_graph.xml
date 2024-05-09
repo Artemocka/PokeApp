@@ -12,5 +12,18 @@
         android:name="com.dracul.pokeapp.ui.main.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main"
-        />
+        >
+        <action
+            android:id="@+id/actionProfile"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.dracul.pokeapp.ui.details.DetailsFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 </navigation>
