@@ -6,18 +6,23 @@ import com.example.domain.models.Page
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class MainViewModel(
     val getPokemonsUseCase: com.example.domain.usecase.GetPokemonsUseCase,
+    val getPokemonDataUseCase: com.example.domain.usecase.GetPokemonsUseCase,
 
     ) : ViewModel() {
 
-    val pokemonList = MutableStateFlow<List<com.example.domain.models.Result>>(emptyList())
+    val _pokemonList = MutableStateFlow<List<com.example.domain.models.Result>>(emptyList())
+    val _error = MutableSharedFlow<String>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
 
-    val error = MutableSharedFlow<String>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    val pokemonList = _pokemonList.asStateFlow()
+    val error =_error.asSharedFlow()
+
     private var page = Page(0)
-
 
     init {
         getPokemons()
@@ -28,11 +33,11 @@ class MainViewModel(
             val result = getPokemonsUseCase.execute(page)
             result.onFailure {
                 it.message?.let { errorMessage ->
-                    error.emit(errorMessage)
+                    _error.emit(errorMessage)
                 }
             }
             result.onSuccess {
-                pokemonList.emit(pokemonList.value + it)
+                _pokemonList.emit(_pokemonList.value + it)
             }
         }
     }
