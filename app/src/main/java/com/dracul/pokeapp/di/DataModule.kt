@@ -1,5 +1,6 @@
 package com.dracul.pokeapp.di
 
+import com.example.data.repository.GetPokemonDataImpl
 import com.example.data.repository.GetPokemonsImpl
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -17,6 +18,10 @@ val dataModule = module {
 
     single<com.example.domain.repository.GetPokemonsRepo>{
         GetPokemonsImpl(get())
+    }
+
+    single<com.example.domain.repository.GetPokemonDataRepo>{
+        GetPokemonDataImpl(get())
     }
 
 }

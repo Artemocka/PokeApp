@@ -1,15 +1,13 @@
 package com.example.domain.usecase
 
-import com.example.domain.models.Page
-import com.example.domain.models.Result
-import com.example.domain.repository.GetPokemonsRepo
-
+import com.example.domain.models.pokemondata.PokemonData
+import com.example.domain.repository.GetPokemonDataRepo
 
 
 class GetPokemonDataUseCase (
-    val repository: GetPokemonsRepo
+    val repository: GetPokemonDataRepo
 ) {
-    suspend fun execute(page: Page):Pair<List<Result>?,String?>{
-        return  repository.get(page)
+    suspend fun execute(id:Int):Result<PokemonData>{
+        return  repository.get(id)
     }
 }
