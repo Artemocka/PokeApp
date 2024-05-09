@@ -29,7 +29,7 @@ class ResultAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = currentList[position]
-        holder.bind(item)
+        holder.bind(item, position+1)
         if (currentList.isNotEmpty()){
             if (position == itemCount.dec()) {
                 listener.onEnd()
@@ -45,14 +45,14 @@ class ResultAdapter(
         init {
             binding.root.setOnClickListener { listener.onItemClick(item.name) }
         }
-        fun bind(item: Result) {
+        fun bind(item: Result,id: Int) {
             binding.run {
                 tvPokemonName.text = item.name.replaceFirstChar {
                     it.uppercaseChar()
                 }
                 Glide
                     .with(binding.root)
-                    .load("https://img.pokemondb.net/artwork/${item.name}.jpg")
+                    .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png")
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(ivPokemon)
 
