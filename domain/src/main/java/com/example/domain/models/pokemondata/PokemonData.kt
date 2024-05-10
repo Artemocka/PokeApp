@@ -10,5 +10,6 @@ data class PokemonData(
     val name: String,
     val order: Int,
     val sprites: Sprites,
-    val weight: Int
+    val weight: Int,
+    val stats: List<Stats>,
 )
