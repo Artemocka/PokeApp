@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.dracul.pokeapp.ui.main.MainFragmentDirections
 import com.example.domain.models.Page
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -16,8 +15,8 @@ class MainViewModel(
     val getPokemonsUseCase: com.example.domain.usecase.GetPokemonsUseCase,
     ) : ViewModel() {
 
-    val _pokemonList = MutableStateFlow<List<com.example.domain.models.Result>>(emptyList())
-    val _error = MutableSharedFlow<String>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    private val _pokemonList = MutableStateFlow<List<com.example.domain.models.Result>>(emptyList())
+    private val _error = MutableSharedFlow<String>(replay = 0)
 
     val pokemonList = _pokemonList.asStateFlow()
     val error =_error.asSharedFlow()

@@ -14,6 +14,7 @@ import com.dracul.pokeapp.databinding.FragmentMainBinding
 import com.dracul.pokeapp.ui.main.recycler.OnItemListener
 import com.dracul.pokeapp.ui.main.recycler.ResultAdapter
 import com.dracul.pokeapp.viewmodels.MainViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -46,6 +47,13 @@ class MainFragment : Fragment(), OnItemListener{
                 binding.rvList.updatePaddingRelative(bottom = systemBars.bottom)
                 insets
             }
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                vm.error.collect{
+                    Snackbar.make(root,it, Snackbar.LENGTH_LONG).show()
+                }
+            }
+
         }
         return binding.root
     }
