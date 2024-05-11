@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
 
         />
-    
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_top"
         android:layout_width="match_parent"
@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:text="Weight:"
+                    android:text="@string/weight"
                     android:layout_weight="1"
                     android:gravity="start"
                     />
@@ -63,7 +63,7 @@
                     android:textSize="14sp"
                     android:layout_weight="1"
                     android:textStyle="bold"
-                    android:text="Height:"
+                    android:text="@string/height"
                     android:gravity="end"
                     />
             </LinearLayout>
@@ -110,30 +110,30 @@
             android:orientation="vertical"
             >
 
-                <LinearLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                >
+                <TextView
+                    android:id="@+id/tv_hp"
+                    android:layout_width="60sp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:text="@string/hp"
+                    />
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/pb_hp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    >
-                    <TextView
-                        android:id="@+id/tv_hp"
-                        android:layout_width="60sp"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:text="HP"
-                        />
-                    <com.google.android.material.progressindicator.LinearProgressIndicator
-                        android:id="@+id/pb_hp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:trackThickness="16dp"
-                        app:trackCornerRadius="16dp"
-                        app:trackStopIndicatorSize="0dp"
-                        android:max="300"
-                        />
-                </LinearLayout>
+                    app:trackThickness="16dp"
+                    app:trackCornerRadius="16dp"
+                    app:trackStopIndicatorSize="0dp"
+                    android:max="300"
+                    />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -147,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:text="ATK"
+                    android:text="@string/atk"
                     />
                 <com.google.android.material.progressindicator.LinearProgressIndicator
                     android:id="@+id/pb_attack"
@@ -171,7 +171,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:text="DEF"
+                    android:text="@string/def"
                     />
                 <com.google.android.material.progressindicator.LinearProgressIndicator
                     android:id="@+id/pb_defense"
@@ -196,7 +196,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:text="SPD"
+                    android:text="@string/spd"
                     />
                 <com.google.android.material.progressindicator.LinearProgressIndicator
                     android:id="@+id/pb_speed"
@@ -221,7 +221,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:text="SATK"
+                    android:text="@string/satk"
                     />
                 <com.google.android.material.progressindicator.LinearProgressIndicator
                     android:id="@+id/pb_special_attack"
@@ -245,7 +245,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:text="SDEF"
+                    android:text="@string/sdef"
                     />
                 <com.google.android.material.progressindicator.LinearProgressIndicator
                     android:id="@+id/pb_special_defense"
@@ -269,7 +269,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:text="EXP"
+                    android:text="@string/exp"
                     />
                 <com.google.android.material.progressindicator.LinearProgressIndicator
                     android:id="@+id/pb_expirience"

@@ -66,6 +66,7 @@ class DetailsFragment : Fragment() {
                         tvWeight.text = "${"%.2f".format(it.weight/1000f)} ${getString(R.string.kg)}"
                         tvHeight.text =  "${"%.2f".format(it.height/100f)} ${getString(R.string.m)}"
                         pbExpirience.setProgress(it.baseExperience, true)
+
                         binding.setStats(it.stats)
 
                         toolbar.setNavigationOnClickListener {
