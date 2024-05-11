@@ -14,9 +14,9 @@ import com.bumptech.glide.Glide
 import com.dracul.pokeapp.R
 import com.dracul.pokeapp.databinding.FragmentDetailsBinding
 import com.dracul.pokeapp.ui.main.recycler.SpriteAdapter
-import com.dracul.pokeapp.utills.poop
 import com.dracul.pokeapp.viewmodels.DetailsViewModel
 import com.example.domain.models.pokemondata.Stats
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -46,13 +46,19 @@ class DetailsFragment : Fragment() {
         binding = FragmentDetailsBinding.inflate(layoutInflater)
 
         binding.run {
-            poop(adapter.currentList.size)
             ViewCompat.setOnApplyWindowInsetsListener(root) { v, insets ->
                 val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
                 v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
                 root.updatePaddingRelative(bottom = systemBars.bottom)
                 insets
             }
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                vm.error.collect{
+                    Snackbar.make(root,it,Snackbar.LENGTH_LONG).show()
+                }
+            }
+
             viewLifecycleOwner.lifecycleScope.launch {
                 vm.pokemonData.collect{
                     it?.let {

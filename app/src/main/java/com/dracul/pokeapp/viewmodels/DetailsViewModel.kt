@@ -9,15 +9,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class DetailsViewModel(
     val getPokemonDataUseCase: GetPokemonDataUseCase,
 ) : ViewModel() {
     val id = MutableStateFlow(0)
-    var pokemonData= MutableStateFlow<PokemonData?>(null)
-    val _error = MutableSharedFlow<String>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-
+    var _pokemonData= MutableStateFlow<PokemonData?>(null)
+    var pokemonData= _pokemonData.asStateFlow()
+    private val _error = MutableSharedFlow<String>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+    val error = _error.asSharedFlow()
     init {
         viewModelScope.launch {
             id.collect{
@@ -38,7 +41,7 @@ class DetailsViewModel(
                 }
             }
             result.onSuccess {
-                pokemonData.value = it
+                _pokemonData.value = it
             }
         }
     }
