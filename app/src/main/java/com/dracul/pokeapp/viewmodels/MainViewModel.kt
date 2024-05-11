@@ -35,6 +35,20 @@ class MainViewModel(
             val result = getPokemonsUseCase.execute(page)
             result.onFailure { throwable ->
                 _error.emit(context.getErrorMessage(throwable))
+                pageDec()
+            }
+            result.onSuccess {
+                _pokemonList.emit(_pokemonList.value + it)
+                pageDec()
+            }
+        }
+    }
+
+    private fun reloadPokemons() {
+        viewModelScope.launch {
+            val result = getPokemonsUseCase.execute(page)
+            result.onFailure { throwable ->
+                _error.emit(context.getErrorMessage(throwable))
             }
             result.onSuccess {
                 _pokemonList.emit(_pokemonList.value + it)
@@ -43,14 +57,35 @@ class MainViewModel(
     }
 
     fun nextPage() {
-        val index = page.index
-        page = page.copy(index = index + 1)
+        pageInc()
         getPokemons()
+    }
+
+    fun reloadPage() {
+        if (_pokemonList.value.isEmpty()) {
+            reloadPokemons()
+        } else {
+            _pokemonList.value = emptyList()
+            page = page.copy(index = 0)
+            reloadPokemons()
+        }
+
     }
 
     fun navigateToDetails(navController: NavController, id: Int) {
         val action = MainFragmentDirections.actionProfile(id)
         navController.navigate(action)
+    }
+
+
+    fun pageDec() {
+        val index = page.index
+        page = page.copy(index = index + 1)
+    }
+
+    fun pageInc() {
+        val index = page.index
+        page = page.copy(index = index + 1)
     }
 
 

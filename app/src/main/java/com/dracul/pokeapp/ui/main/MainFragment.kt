@@ -20,9 +20,9 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MainFragment : Fragment(), OnItemListener{
+class MainFragment : Fragment(), OnItemListener {
 
-    private lateinit var binding :FragmentMainBinding
+    private lateinit var binding: FragmentMainBinding
     private val vm by viewModel<MainViewModel>()
     private val adapter = ResultAdapter(this)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,8 +35,7 @@ class MainFragment : Fragment(), OnItemListener{
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainBinding.inflate(layoutInflater)
         binding.rvList.adapter = adapter
@@ -49,9 +48,13 @@ class MainFragment : Fragment(), OnItemListener{
             }
 
             viewLifecycleOwner.lifecycleScope.launch {
-                vm.error.collect{
-                    Snackbar.make(root,it, Snackbar.LENGTH_LONG).show()
+                vm.error.collect {
+                    Snackbar.make(root, it, Snackbar.LENGTH_LONG).show()
                 }
+            }
+            swipeToRefresh.setOnRefreshListener {
+                vm.reloadPage()
+                swipeToRefresh.isRefreshing = false
             }
 
         }

@@ -44,8 +44,12 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
 
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
+
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
