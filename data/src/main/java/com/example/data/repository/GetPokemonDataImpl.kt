@@ -7,17 +7,17 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 class GetPokemonDataImpl(
-    val api: PokeApi
+    val api: PokeApi,
 ) : GetPokemonDataRepo {
     override suspend fun get(id:Int):Result<PokemonData>{
         return try {
             Result.success(api.getPokemonData(id))
         } catch (e: UnknownHostException) {
-            Result.failure(Throwable("No internet connections!"))
+            Result.failure(e)
         } catch (e: SocketTimeoutException) {
-            Result.failure(Throwable("Bad internet connections!"))
+            Result.failure(e)
         } catch (e: Exception) {
-            Result.failure(Throwable("Unknown error!"))
+            Result.failure(e)
         }
     }
 }
