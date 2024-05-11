@@ -13,6 +13,7 @@ val appModule = module {
     viewModel {
         MainViewModel(
             getPokemonsUseCase = get(),
+            context = androidContext(),
             )
     }
     viewModel {

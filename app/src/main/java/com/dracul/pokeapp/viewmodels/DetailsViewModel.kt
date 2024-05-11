@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import com.dracul.pokeapp.R
+import com.dracul.pokeapp.utills.getErrorMessage
 import com.example.domain.models.pokemondata.PokemonData
 import com.example.domain.usecase.GetPokemonDataUseCase
 import kotlinx.coroutines.Dispatchers
@@ -13,8 +13,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
 
 class DetailsViewModel(
     val getPokemonDataUseCase: GetPokemonDataUseCase,
@@ -45,11 +43,7 @@ class DetailsViewModel(
             id.value?.let {
                 val result = getPokemonDataUseCase.execute(it)
                 result.onFailure { throwable ->
-                    when(throwable){
-                        is UnknownHostException ->_error.emit(context.getString(R.string.no_internet_connections))
-                        is SocketTimeoutException ->_error.emit(context.getString(R.string.bad_internet_connections))
-                        is Exception ->_error.emit(context.getString(R.string.unknown_error))
-                    }
+                    _error.emit(context.getErrorMessage(throwable))
                 }
                 result.onSuccess { tempPokemonData ->
                     _pokemonData.value = tempPokemonData
