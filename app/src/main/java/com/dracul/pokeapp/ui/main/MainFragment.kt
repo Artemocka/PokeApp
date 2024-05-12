@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.core.view.updatePaddingRelative
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.dracul.pokeapp.databinding.FragmentMainBinding
+import com.dracul.pokeapp.ui.State
 import com.dracul.pokeapp.ui.main.recycler.OnItemListener
 import com.dracul.pokeapp.ui.main.recycler.ResultAdapter
 import com.dracul.pokeapp.viewmodels.MainViewModel
@@ -48,13 +50,33 @@ class MainFragment : Fragment(), OnItemListener {
             }
 
             viewLifecycleOwner.lifecycleScope.launch {
+                vm.state.collect {
+                    when (it) {
+                        State.Loading -> {
+                            tvErrorText.isVisible = false
+                            swipeToRefresh.isRefreshing = true
+                        }
+
+                        State.Error -> {
+                            swipeToRefresh.isRefreshing = false
+                            if (vm.pokemonList.value.isEmpty())
+                                tvErrorText.isVisible = true
+                        }
+
+                        State.Loaded -> {
+                            swipeToRefresh.isRefreshing = false
+                        }
+                    }
+                }
+            }
+            viewLifecycleOwner.lifecycleScope.launch {
                 vm.error.collect {
                     Snackbar.make(root, it, Snackbar.LENGTH_LONG).show()
+                    tvErrorText.text = it
                 }
             }
             swipeToRefresh.setOnRefreshListener {
                 vm.reloadPage()
-                swipeToRefresh.isRefreshing = false
             }
 
         }

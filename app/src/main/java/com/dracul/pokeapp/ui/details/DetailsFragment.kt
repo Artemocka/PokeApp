@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.dracul.pokeapp.R
 import com.dracul.pokeapp.databinding.FragmentDetailsBinding
+import com.dracul.pokeapp.ui.State
 import com.dracul.pokeapp.viewmodels.DetailsViewModel
 import com.example.domain.models.pokemondata.Stats
 import com.google.android.material.snackbar.Snackbar
@@ -60,6 +61,7 @@ class DetailsFragment : Fragment() {
                         }
 
                         State.Loaded -> {
+                            piLoading.isVisible = false
                             hideErrorUi()
                             showLoadedUi()
                         }

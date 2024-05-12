@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import com.dracul.pokeapp.ui.details.State
+import com.dracul.pokeapp.ui.State
 import com.dracul.pokeapp.utills.getErrorMessage
 import com.example.domain.models.pokemondata.PokemonData
 import com.example.domain.usecase.GetPokemonDataUseCase

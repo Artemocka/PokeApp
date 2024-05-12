@@ -1,4 +1,4 @@
-package com.dracul.pokeapp.ui.details
+package com.dracul.pokeapp.ui
 
 enum class State {
     Loading,
